@@ -24,13 +24,27 @@ async function run() {
             const products = await cursor.toArray();
             res.send(products);
         });
-        // Single product
+        // Single product get api
         app.get('/product/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const product = await productCollection.findOne(query);
             res.send(product);
         });
+        // update quantity
+        app.put('/product/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedQuantity = Number(req.query.quantity);
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: updatedQuantity
+                }
+            };
+            const result = await productCollection.updateOne(filter, updatedDoc, options);
+            res.json(result);
+        })
     }
     finally {
 

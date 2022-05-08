@@ -34,7 +34,7 @@ async function run() {
         // update quantity
         app.put('/product/:id', async (req, res) => {
             const id = req.params.id;
-            const updatedQuantity = Number(req.query.quantity);
+            const updatedQuantity = parseInt(req.body.newQuantity);
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
             const updatedDoc = {
@@ -43,7 +43,7 @@ async function run() {
                 }
             };
             const result = await productCollection.updateOne(filter, updatedDoc, options);
-            res.json(result);
+            res.send(result);
         })
     }
     finally {

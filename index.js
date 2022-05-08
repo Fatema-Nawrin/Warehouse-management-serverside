@@ -10,6 +10,7 @@ const app = express();
 const corsConfig = {
     origin: true,
     credentials: true,
+    optionSuccessStatus: 200,
 }
 app.use(cors(corsConfig));
 app.options('*', cors(corsConfig))
@@ -56,7 +57,6 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = await productCollection.deleteOne(query);
             res.send(result)
-
         })
     }
     finally {

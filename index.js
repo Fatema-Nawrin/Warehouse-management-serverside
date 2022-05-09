@@ -42,7 +42,7 @@ async function run() {
         });
 
         // Get API for user email specific products
-        app.get('/product', async (req, res) => {
+        app.get('/myproduct', async (req, res) => {
             const email = req.query.email;
             console.log(email)
             const query = { email: email };

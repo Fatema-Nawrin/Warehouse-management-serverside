@@ -42,13 +42,13 @@ async function run() {
         });
 
         // Get API for user email specific products
-        app.get('/product/:email', async (req, res) => {
-            const email = req.params.email;
+        app.get('/product', async (req, res) => {
+            const email = req.query.email;
             console.log(email)
             const query = { email: email };
             const cursor = productCollection.find(query);
             const products = await cursor.toArray();
-            res.json(products);
+            res.send(products);
         });
 
         // update quantity
